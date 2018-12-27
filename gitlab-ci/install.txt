@@ -1,0 +1,19 @@
+## Создадим виртуальную машину в облаке
+
+gcloud compute --project=xxxxxxxxxxx instances create gitlab-runner --zone=europe-west1-b --machine-type=f1-micro --scopes=https://www.googleapis.com/auth/compute --image-family=ubuntu-1604-lts --image-project=ubuntu-os-cloud --boot-disk-size=30GB
+
+## Зайдем на виртуалку и установим необходимый софт:
+
+1. Docker
+2. Docker-machine
+3. Gitlab Runner
+
+
+## Регистрируем раннер. В качестве executor указываем docker-machine
+
+## Правим config.toml, добавляем авто-скейлинг
+
+## Перезагружаем Gitlab Runner
+
+
+
