@@ -5,56 +5,63 @@ services:
     volumes:
       - post_db:/data/db
     networks:
-      - reddit
-      - back_net
-      - front_net
+      back_net:
+        aliases:
+          - post_db
+          - comment_db
+     
   ui:
     image: ${USERNAME}/ui:latest
     ports:
       - ${SERVICE_PORT}:${SERVICE_PORT}/tcp
     networks:
-      - reddit
-      - front_net
+      front_net:
   post:
     image: ${USERNAME}/post:latest
     networks:
-      - reddit
-      - front_net
-      - back_net
+      front_net:
+        aliases:
+          - post
+      back_net:
+        aliases:
+          - post
   comment:
     image: ${USERNAME}/comment:latest
-    networks:
-      - reddit
-      - front_net
-      - back_net
+    networks: 
+      back_net:
+        aliases:
+          - comment
+      front_net:
+        aliases:
+          - comment
   prometheus:
-    image: ${USERNAME}/prometheus
+    image: ${USERNAME}/prometheus:latest
     ports:
       - '9090:9090'
     volumes:
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.path=/prometheus' 
       - '--storage.tsdb.retention=1d'
     networks:
-      - front_net
-      - back_net
-
+      back_net:
+        aliases:
+          - prometheus
+      front_net:
+        aliases:
+          - prometheus
 volumes:
   post_db:
   prometheus_data:
 networks:
-  reddit:
   front_net:
-        driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: ${FRONT_SUBNET}
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.132.1.0/24 
   back_net:
-        driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: 10.0.2.0/24
+     driver: bridge
+     ipam:
+       config:
+         - subnet: 10.132.2.0/24
