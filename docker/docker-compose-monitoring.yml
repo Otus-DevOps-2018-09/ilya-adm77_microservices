@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+
+  cadvisor:
+    image: google/cadvisor:v0.29.0
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+    ports:
+      - '8080:8080'
+    networks:
+      back_net:
+        aliases:
+          - cadvisor
+      front_net:
+        aliases:
+          - cadvisor 
+
+
+networks:
+  front_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.132.1.0/24
+  back_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.132.2.0/24
