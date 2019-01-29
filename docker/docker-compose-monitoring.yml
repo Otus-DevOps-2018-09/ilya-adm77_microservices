@@ -1,5 +1,23 @@
 version: '3.3'
 services:
+  prometheus:
+    image: ${USERNAME}/prometheus:latest
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+    networks:
+      back_net:
+        aliases:
+          - prometheus
+      front_net:
+        aliases:
+          - prometheus
+
 
   cadvisor:
     image: google/cadvisor:v0.29.0
@@ -17,6 +35,28 @@ services:
       front_net:
         aliases:
           - cadvisor 
+
+  grafana:
+    image: grafana/grafana:5.0.0
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret77
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    networks:
+      back_net:
+        aliases:
+          - grafana
+      front_net:
+        aliases:
+          - grafana
+volumes:
+  grafana_data:
+  prometheus_data:
 
 
 networks:

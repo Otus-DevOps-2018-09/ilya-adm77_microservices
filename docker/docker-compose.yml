@@ -52,26 +52,8 @@ services:
       back_net:
         aliases:
         - node_exporter
-  prometheus:
-    image: ${USERNAME}/prometheus:latest
-    ports:
-      - '9090:9090'
-    volumes:
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus' 
-      - '--storage.tsdb.retention=1d'
-    networks:
-      back_net:
-        aliases:
-          - prometheus
-      front_net:
-        aliases:
-          - prometheus
 volumes:
   post_db:
-  prometheus_data:
 networks:
   front_net:
     driver: bridge
