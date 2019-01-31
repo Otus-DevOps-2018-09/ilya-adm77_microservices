@@ -14,6 +14,11 @@ services:
     image: ${USERNAME}/ui:latest
     ports:
       - ${SERVICE_PORT}:${SERVICE_PORT}/tcp
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
     networks:
       front_net:
   post:
@@ -59,9 +64,9 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.132.1.0/24 
+        - subnet: 10.128.1.0/24 
   back_net:
      driver: bridge
      ipam:
        config:
-         - subnet: 10.132.2.0/24
+         - subnet: 10.128.2.0/24
