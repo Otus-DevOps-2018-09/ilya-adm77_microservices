@@ -13,6 +13,7 @@ jdauphant.nginx
 .vagrant/
 *.log
 *.pyc
+*.swo
 .molecule
 .cache
 .pytest_cache
