@@ -37,6 +37,14 @@ services:
       front_net:
         aliases:
           - kibana
+  zipkin:
+    image: openzipkin/zipkin:2.11.8
+    ports:
+      - "9411:9411"
+    networks:
+      - front_net
+      - back_net
+  
 networks:
   front_net:
     driver: bridge
