@@ -12,12 +12,21 @@ services:
      
   ui:
     image: ${USERNAME}/ui:latest
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     ports:
       - ${SERVICE_PORT}:${SERVICE_PORT}/tcp
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
     networks:
       front_net:
   post:
     image: ${USERNAME}/post:latest
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
       front_net:
         aliases:
@@ -25,8 +34,15 @@ services:
       back_net:
         aliases:
           - post
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
   comment:
     image: ${USERNAME}/comment:latest
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks: 
       back_net:
         aliases:
@@ -59,9 +75,9 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.132.1.0/24 
+        - subnet: 10.128.2.0/24 
   back_net:
      driver: bridge
      ipam:
        config:
-         - subnet: 10.132.2.0/24
+         - subnet: 10.128.1.0/24
