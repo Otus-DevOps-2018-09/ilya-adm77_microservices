@@ -1,3 +1,32 @@
+=========================================================== HOMEWORK Kubernetes-1  =======================
+
+Основное ДЗ:
+
+- Создали структуру каталогов;
+- Описали манифесты Deployment для приложения Reddit;
+
+Kubernetes_The Hard Way:
+
+- Установили инструменты cfssl, cfssljson, и kubectl;
+- Создали в облаке выделенную сеть VPC, определили подсеть и правила для файрволла и зарезервировали ip - адрес;
+- Подняли три ВМ для хостинга Kubernetes Controller и 3 ВМ для хостинга Kubernetes Workers;
+- Сгенерировали TLS - сертфикаты, скопировали их в инстансы;
+- Сгенерировали kubeconfig для workers, proxy, managers,scheduler, admin и загрузили их в инстансы;
+- Настроили шифрование данных;
+- Настроили etcd - кластер, на каждую ВМ установили Kubernetes API Server, Scheduler, and Controller Manager;
+- Настроили RBAC и frontend - балансировщик, проверили, что снаружи доступ есть;
+- Настроим worker nodes и удаленный доступ к kubectl;
+- Прописали маршруты для подов и настроили DNS - кластер;
+- Выполнили smoke - test;
+- Проверили, что все созданные ранее поды приложения reddit запускаются;
+- Удалили кластер;
+
+Задание со *
+
+- В файле kuber-controller.yml описано развертывание сервисоkube-apiserver, kube-controller-manager, kube-scheduler, kube-apiserver, kube-controller-manager, kube-scheduler
+
+
+ 
 =========================================================== HOMEWORK Logging - 1  =======================
 
 Основное ДЗ:
