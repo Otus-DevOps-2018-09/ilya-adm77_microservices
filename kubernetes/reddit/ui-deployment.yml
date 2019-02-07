@@ -22,3 +22,8 @@ spec:
       containers:
       - image: otusdevops77/ui
         name: ui
+        env:
+        - name: ENV
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
