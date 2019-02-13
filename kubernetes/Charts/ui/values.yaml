@@ -6,6 +6,8 @@ service:
 image:
   repository: otusdevops77/ui
   tag: latest
+ingress:
+  class: nginx
 
 postHost:
 postPort:
