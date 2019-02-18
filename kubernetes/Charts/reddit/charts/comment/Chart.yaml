@@ -1,0 +1,7 @@
+appVersion: "1"
+description: OTUS reddit application comment
+maintainers:
+- email: my@mail.com
+  name: Dmitry Mischenko
+name: comment
+version: 1.0.0
